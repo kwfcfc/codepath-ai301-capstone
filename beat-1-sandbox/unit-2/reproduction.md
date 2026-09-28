@@ -47,10 +47,11 @@ field is graded on, so copy across what you actually posted.]
 
 https://github.com/codepath/pathreview-ai301-fa26-s1/issues/72#issuecomment-5862828554
 
-````markdown
+~~~markdown
 # Candidate Repro Report
 
-Here is report about how I reproduce the issue with information about environment, program version, steps, expected and actual behavior.
+Here is report about how I reproduce the issue with information about environment, program version,
+steps, expected and actual behavior.
 
 Environment:
 - OS: macOS 26.6.2
@@ -98,7 +99,8 @@ Traceback (most recent call last):
 passlib.exc.UnknownHashError: hash could not be identified
 ```
 
-4. I have also run `pytest` in a verbose mode to show the error trace back that tracks the error to the `passlib.context` identify record error. The test:
+4. I have also run `pytest` in a verbose mode to show the error trace back that tracks the error to
+   the `passlib.context` identify record error. The test:
 
 ```bash
 $ python -m pytest tests/unit/test_security.py -k test_verify_with_wrong_hash_format -v
@@ -130,13 +132,15 @@ core/config.py:7
 
 Expected: The pytest should return `False` when verifying wrong hash format password.
 
-Actual: The pytest throws `UnknownHashError: hash could not be identified`. It also throws two unrelated warnings about deprecated `crypt` and class-based `config` usage.
+Actual: The pytest throws `UnknownHashError: hash could not be identified`. It also throws two
+        unrelated warnings about deprecated `crypt` and class-based `config` usage.
 
 
 # AI usage disclosure
 
-1. I used Claude Code with model Sonnet 5 and Opus 5 to help me set up Pyhton environment and learn usage about pytest. I ran all the commands in the steps above and draft the comment myself.
-````
+1. I used Claude Code with model Sonnet 5 and Opus 5 to help me set up Pyhton environment and learn
+   usage about pytest. I ran all the commands in the steps above and draft the comment myself.
+~~~
 
 
 ## Eval iterations
