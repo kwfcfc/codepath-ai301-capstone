@@ -47,7 +47,7 @@ field is graded on, so copy across what you actually posted.]
 
 https://github.com/codepath/pathreview-ai301-fa26-s1/issues/72#issuecomment-5862828554
 
-```markdown
+````markdown
 # Candidate Repro Report
 
 Here is report about how I reproduce the issue with information about environment, program version, steps, expected and actual behavior.
@@ -136,7 +136,7 @@ Actual: The pytest throws `UnknownHashError: hash could not be identified`. It a
 # AI usage disclosure
 
 1. I used Claude Code with model Sonnet 5 and Opus 5 to help me set up Pyhton environment and learn usage about pytest. I ran all the commands in the steps above and draft the comment myself.
-```
+````
 
 
 ## Eval iterations
