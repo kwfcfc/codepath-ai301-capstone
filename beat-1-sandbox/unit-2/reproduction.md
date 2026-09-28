@@ -18,6 +18,7 @@ label is not graded.
 [Your GitHub username, exactly as it appears on your profile — no `@`, no profile URL. Your
 comments upstream are identified by this name.]
 
+kwfcfc
 ---
 
 ## Posted upstream
@@ -46,11 +47,27 @@ fields.
 only one run occurred. **The last score in your list must match the agreement line in the
 `eval-run.txt` you committed** — that file is the record of your final run.]
 
+- Run 1:
+  categories: clear-accept 3/8  disclosure 0/1  no-evidence 4/4  unfollowable-comms 2/3  wrong-target 4/4
+  agreement: 13/20 scored items  (bar: 18/20: below the bar; category floor unmet: no match in disclosure)
+- Run 2:
+  categories: clear-accept 7/8  disclosure 1/1  no-evidence 4/4  unfollowable-comms 3/3  wrong-target 4/4
+  agreement: 19/20 scored items  (bar: 18/20: PASS)
+
 **Package analysis**
 
 [Pick one scored package (`pkg-01` through `pkg-20` — the four `calib-` packages are never
 scored). Name it by id, say what your rubric decided and what the gold label said, and
 explain why your rubric read it that way.]
+
+| item | gold | verdict |
+| ---  | ---  | --- |
+| pkg-01 | accept  | reject  |
+
+The failed check is: correct reproduction steps. This check asks for reproduction 
+report to follow the issue ste by step and use equivalent command and input. In 
+the pkg-01, the candidate use `http --offline ...` command, so the check fails 
+because it is not an equivalent command. 
 
 **Check rationale**
 
@@ -58,12 +75,27 @@ explain why your rubric read it that way.]
 Then say why it reads that way — what you revised to get there, or what you rejected in
 favour of it.]
 
+One quoted check is:
+
+| Check | Evidence | Pass condition | Weight |
+|---|---|---|---|
+| correct reproduction steps | reproduction must follow the steps in the issue | the reproduction should follow the steps in the issue, and use equivalent command and input to reproduce the issue | required |
+
+This asks candidate to follow the exact steps of commands and inputs to 
+successfullly reproduce the issue. If the candidate does not follow these steps,
+they may fail to reproduce the issue or give false negative result.
+
 **Trade-offs**
 
 [Every check gives something up. Any one of these is a complete answer: a package whose
 result it changes, a canary you re-ran with `--only`, a case you accept it will miss, or a
 stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
 the point in full when the reason follows.]
+
+This check says equivalent commands but it does not distinguish whether an 
+argument is required for the reproduction. In the `pkg-01`, candidate used 
+`--offline` because it is sufficient to reproduce the issue by printing out the
+headers instead of sending the actual request.
 
 ---
 
