@@ -47,6 +47,98 @@ field is graded on, so copy across what you actually posted.]
 
 https://github.com/codepath/pathreview-ai301-fa26-s1/issues/72#issuecomment-5862828554
 
+```markdown
+# Candidate Repro Report
+
+Here is report about how I reproduce the issue with information about environment, program version, steps, expected and actual behavior.
+
+Environment:
+- OS: macOS 26.6.2
+- Python: 3.12.13
+- Libraries:
+  - bcrypt: 4.3.0
+  - passlib: 1.7.4
+
+Version: the program runs on commit `f89c06fc3ff292df2a04a39ac51319d32a76b779`
+
+Steps:
+
+1. use `uv` to install dependencies:
+
+```bash
+$ uv venv --relocatable .venv
+$ uv pip install -e ".[dev]"
+```
+
+2. activate the python `venv` environment:
+
+```bash
+$ source .venv/bin/activate
+```
+
+3. I ran the python function `verify_password` directly with a malformed hash password:
+
+```bash
+$ python -c "from core.security import verify_password, hash_password
+verify_password('password', 'not_a_valid_bcrypt_hash')"
+
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+  File "/private/tmp/pathreview-ai301-fa26-s1/core/security.py", line 37, in verify_password
+    return bool(pwd_context.verify(plain_password, hashed_password))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/pathreview-ai301-fa26-s1/.venv/lib/python3.12/site-packages/passlib/context.py", line 2343, in verify
+    record = self._get_or_identify_record(hash, scheme, category)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/pathreview-ai301-fa26-s1/.venv/lib/python3.12/site-packages/passlib/context.py", line 2031, in _get_or_identify_record
+    return self._identify_record(hash, category)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/pathreview-ai301-fa26-s1/.venv/lib/python3.12/site-packages/passlib/context.py", line 1132, in identify_record
+    raise exc.UnknownHashError("hash could not be identified")
+passlib.exc.UnknownHashError: hash could not be identified
+```
+
+4. I have also run `pytest` in a verbose mode to show the error trace back that tracks the error to the `passlib.context` identify record error. The test:
+
+```bash
+$ python -m pytest tests/unit/test_security.py -k test_verify_with_wrong_hash_format -v
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0 -- /private/tmp/pathreview-ai301-fa26-s1/.venv/bin/python
+cachedir: .pytest_cache
+benchmark: 5.3.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+hypothesis profile 'default'
+rootdir: /private/tmp/pathreview-ai301-fa26-s1
+configfile: pyproject.toml
+plugins: cov-7.1.0, asyncio-1.4.0, benchmark-5.3.0, hypothesis-6.168.2, pytest_httpserver-1.1.5, platformdirs-4.12.0, anyio-4.15.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 25 items / 24 deselected / 1 selected
+
+tests/unit/test_security.py::TestSecurity::test_verify_with_wrong_hash_format XFAIL [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854
+  /private/tmp/pathreview-ai301-fa26-s1/.venv/lib/python3.12/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+    from crypt import crypt as _crypt
+
+core/config.py:7
+  /private/tmp/pathreview-ai301-fa26-s1/core/config.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================ 24 deselected, 1 xfailed, 2 warnings in 0.20s =================
+```
+
+Expected: The pytest should return `False` when verifying wrong hash format password.
+
+Actual: The pytest throws `UnknownHashError: hash could not be identified`. It also throws two unrelated warnings about deprecated `crypt` and class-based `config` usage.
+
+
+# AI usage disclosure
+
+1. I used Claude Code with model Sonnet 5 and Opus 5 to help me set up Pyhton environment and learn usage about pytest. I ran all the commands in the steps above and draft the comment myself.
+```
+
+
 ## Eval iterations
 
 Answer all four sections. Quote source text directly; paraphrase does not satisfy these
