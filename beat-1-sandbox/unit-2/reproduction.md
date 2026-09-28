@@ -29,12 +29,23 @@ kwfcfc
 issue page on its own. **Then paste the text of that comment underneath the link** — the
 pasted text is what this field is graded on, so copy across what you actually posted.]
 
+https://github.com/codepath/pathreview-ai301-fa26-s1/issues/72#issuecomment-5862069638
+
+```markdown
+Hi, I'd like to pick up this issue. I plan to first run the `test_verify_with_wrong_hash_format`
+unit test and write up a bug reproduction report. Then I will propose an exception handler for the
+`verify_password` function when the `passlib.CryptContext` fails to decode malformed hashed
+password.
+```
+
 **Reproduction comment**
 
 [Link to the comment where you posted your reproduction. It must record the environment
 (OS, relevant versions, code state), steps a stranger could follow, and what you observed.
 **Then paste the text of that comment underneath the link** — the pasted text is what this
 field is graded on, so copy across what you actually posted.]
+
+https://github.com/codepath/pathreview-ai301-fa26-s1/issues/72#issuecomment-5862828554
 
 ## Eval iterations
 
@@ -64,10 +75,10 @@ explain why your rubric read it that way.]
 | ---  | ---  | --- |
 | pkg-01 | accept  | reject  |
 
-The failed check is: correct reproduction steps. This check asks for reproduction 
-report to follow the issue ste by step and use equivalent command and input. In 
-the pkg-01, the candidate use `http --offline ...` command, so the check fails 
-because it is not an equivalent command. 
+The failed check is: correct reproduction steps. This check asks for reproduction
+report to follow the issue ste by step and use equivalent command and input. In
+the pkg-01, the candidate use `http --offline ...` command, so the check fails
+because it is not an equivalent command.
 
 **Check rationale**
 
@@ -81,7 +92,7 @@ One quoted check is:
 |---|---|---|---|
 | correct reproduction steps | reproduction must follow the steps in the issue | the reproduction should follow the steps in the issue, and use equivalent command and input to reproduce the issue | required |
 
-This asks candidate to follow the exact steps of commands and inputs to 
+This asks candidate to follow the exact steps of commands and inputs to
 successfullly reproduce the issue. If the candidate does not follow these steps,
 they may fail to reproduce the issue or give false negative result.
 
@@ -92,8 +103,8 @@ result it changes, a canary you re-ran with `--only`, a case you accept it will 
 stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
 the point in full when the reason follows.]
 
-This check says equivalent commands but it does not distinguish whether an 
-argument is required for the reproduction. In the `pkg-01`, candidate used 
+This check says equivalent commands but it does not distinguish whether an
+argument is required for the reproduction. In the `pkg-01`, candidate used
 `--offline` because it is sufficient to reproduce the issue by printing out the
 headers instead of sending the actual request.
 
