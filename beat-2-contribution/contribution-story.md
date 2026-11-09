@@ -56,49 +56,49 @@ one in the week it belongs to.
 
 **Unit 5: a general one time issue search in direct mode**
 
-2026-11-9
-I chose my issue before setting up the issue-scout. Mostly I just use the
+2026-11-09
+I chose my issue before setting up the issue-scout. Mostly I just used the
 issue-scout to double check some standard. My search strategy is some innovative
 features and community improvement with good automation system.
 
 **Unit 6: template voice-guard and a claude side project level memory**
 
 2026-11-05
-The voice-guard was from beat-1 with little revise. Mostly because the general
+The voice-guard was from beat-1 with little revision. Mostly because the general
 voice guard applies and the claude code has project level memory instead of a
-Claude.local.md on the GitHub repo.
+CLAUDE.local.md on the GitHub repo.
 
 **Unit 7: ship-gate with fork side GitHub workflow simulation**
 
 2026-11-06
 The ship-gate skipped the npm and python test workflow and only used GitHub
 Actions workflow to collect labeling behavior. It did find labeling for
-previously missing labels testing and secret-pattern are correct but later
+previously missing labels `testing` and `secret-pattern` are correct but later
 deleted by myself because I forgot to set up those labels before the simulation
 test.
 
 **Unit 8: No reply from maintainer, PR was too inactive to start monitoring**
 
 EST: 2026-11-12
-I haven't received reply yet, so PR monitor wasn't installed to start its first 
-run. I plan to add a notification on the GitHub side and forward notice to me.
+I haven't received a reply yet,  so I haven't installed the PR monitor or
+started its first run. I plan to add a notification on the GitHub side and
+forward notice to me.
 
 ---
 
 ## Why I Chose This Issue
 
 I searched from the course issue selection site with `good first issue` and
-found out this issue. It aligned with my interest on CI/CD tools, small
+found this issue. It aligned with my interest in CI/CD tools, small
 community contribution with a proper amount to time to work on.
 
 
 **Toolkit**
 
-- Tool: issue-scout (your scout: your search strategy, your rubric),
-  and how you used it
-- What it produced: [the scan and its verdict on this issue, described]
-- Difficulties: [where it fell short, or "none met" if none did]
-- What changed: [what you patched or would update, or "nothing"]
+- Tool: issue-scout, online issue select site
+- What it produced: reject
+- Difficulties: cannot find my preferred issues
+- What changed: A claim comment on the [issue](https://github.com/Raftersecurity/rafter-cli/issues/32)
 
 ---
 
@@ -108,9 +108,9 @@ community contribution with a proper amount to time to work on.
 
 rafter-cli has no automation that labels pull requests. The labels `bug`,
 `enhancement`, `testing`, `documentation` and `secret-pattern` already exist
-in the repository. Each PR needs maintainer to manually apply labels, so recent
-PRs carry no labels at all as contribution scales. Issue #32 asks for a GitHub
-Actions workflow that labels a PR by its title prefix and by the files it
+in the repository. Each PR needs a maintainer to manually apply labels, so 
+recent PRs carry no labels at all as contributions grow. Issue #32 asks for a
+GitHub Actions workflow that labels a PR by its title prefix and by the files it
 changes because "manual labeling doesn't scale."
 
 **Expected Behavior**
@@ -338,7 +338,7 @@ Deviations and mid-build changes:
 - What it produced: GitHub Actions running logs from simulated PR
 - Difficulties: triggering outside real world workflow, slow and sometimes hard
   to debug
-- What changed: `.github/labeler.yml` and workflow `.github/workflow/auto-label.yml`
+- What changed: `.github/labeler.yml` and workflow `.github/workflows/auto-label.yml`
 ---
 
 ## Testing Strategy
@@ -383,8 +383,8 @@ and `secret-pattern` in my fork, which removed them from #3, #5, #12, #13, #15,
   https://github.com/kwfcfc/rafter-cli/actions/workflows/auto-label.yml
 - `test-github-action.yml` (the repo's test for its composite action),
   dispatched on my fork: run 42149364176, success. It shows the existing
-  action still works; it does not exercise the new workflow because it triggers
-  real GitHub Action request.
+  action still works; it does not exercise the new workflow because it only runs
+  the existing upstream workflow
 - Node (`pnpm test`) and Python (`pytest`) suites: not run against this
   change, because the diff only touches `.github/`. Locally, `pnpm test`
   fails in `tests/skill.test.ts` (ENOENT on `.rafter/config.json`) on a
@@ -399,7 +399,7 @@ and `secret-pattern` in my fork, which removed them from #3, #5, #12, #13, #15,
 - What it produced: test PRs on my own fork to test labeling
 - Difficulties: needs to wait for GitHub to running real PRs, requires extra
   configuration to simulate a first time contributor.
-- What changed: GitHub Action Running Logs on my own fork
+- What changed: GitHub Actions Running Logs on my own fork
 
 ---
 
@@ -448,9 +448,9 @@ Simulated PRs opened by-changed-files cases #22–#30, and fixed `label.yml` →
 Opened PR #356. The last ship-gate run was still BLOCK. ship-gate cannot handle
 the case where the upstream is the base but gh workflow runs on my own fork to
 simulate the new test. It also refused to pass without a reproduction result
-though this is a new feature request that cannot trigger the GitHub Action on
-the upstream. The ship-gate passes on the PR's draft and overall changes. So I
-opened the PR on the web.
+though this is a new feature request that cannot trigger the GitHub Actions on
+the upstream. The ship-gate passes the PR's draft, scope and diagnosis. It
+failed on Test. I opened the PR on the web without the blocking
 
 **2026-11-09**
 
@@ -460,12 +460,12 @@ rubric counts my own claim and PR.
 
 **Toolkit**
 
-- Tool: python, nix, uv, gh
-- What it produced: rerun the ship-gate, diagnoised the GitHub Action running
+- Tool: python, nix, gh, ship-gate
+- What it produced: rerun the ship-gate, diagnosed the GitHub Actions running
   and privilege issues.
 - Difficulties: Hard to modify the ship-gate to fit in the new feature workflow
   that integrated with GitHub's own workflow
-- What changed: a new PR on th
+- What changed: new PRs and GitHub Actions logs on my fork
 
 ---
 
@@ -480,7 +480,7 @@ labeling PRs (#32)`. The body follows the format in CONTRIBUTING.md:
   `.github/labeler.yml`; labels by changed files and by title; labels are not
   synced when files or the title change.
 - **Test plan:** PRs opened on my fork to simulate first-time contributors,
-  with a link to the fork's PR list. The labels `testing` and `secrete-patterns`
+  with a link to the fork's PR list. The labels `testing` and `secret-pattern`
   of 7 tests were deleted because I forgot to add them in my own fork before I
   start the test.
 - **Spec update:** CLI behavior is unchanged, so `shared-docs/CLI_SPEC.md` is
@@ -502,7 +502,7 @@ Diff: 2 files, +58/−0, in 2 commits (`af5fff5`, `4fdfb58`), from
 
 **Toolkit**
 
-- Tool: None
+- Tool: ship-gate, pr-precheck, voice-guard
 - What it produced: waiting feedback
 - Difficulties: external waiting time
 - What changed: None
@@ -513,7 +513,7 @@ Diff: 2 files, +58/−0, in 2 commits (`af5fff5`, `4fdfb58`), from
 
 **Technical Skills Gained**
 
-1. GitHub Actions workflow, especially github-scripts
+1. GitHub Actions workflow, especially `actions/github-script`
 2. Concepts of auto managing PR and issues with automated labeling tools
 3. Diagnoise and analysis ability for real CI/CD issues
 
